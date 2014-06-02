@@ -1,0 +1,109 @@
+doctype html
+html.no-js
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    title ManagerBabascriptOrg
+    meta(name='description', content='')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    // Place favicon.ico and apple-touch-icon.png in the root directory
+    // build:css(.tmp) styles/main.css
+    link(rel='stylesheet', href='styles/main.css')
+    // endbuild
+    // build:js scripts/vendor/modernizr.js
+    script(src='bower_components/modernizr/modernizr.js')
+    // endbuild
+  body
+    //if lt IE 10
+      p.browsehappy
+        | You are using an
+        strong outdated
+        | browser. Please
+        a(href='http://browsehappy.com/') upgrade your browser
+        | to improve your experience.
+    #header.navbar.navbar-inverse.navbar-static-top(role='navigation')
+      .container
+        .navbar-header
+          a.navbar-brand(href='/') Babascript Manager
+    .container.contents
+      .row
+        #sidebar.col-md-3
+        #main.col-md-9
+    script(type="text/template", id="sidebar-template")
+      .user-box
+        a(href="/"): h3 Takumi Baba
+      hr
+      ul.sidebar-group-list.nav.nav-pills.nav-stacked
+
+    script(type="text/template", id="sidebar-group-element-template")
+      a(href!="/group/<%= name %>") <%= name %>
+
+    script(type="text/template", id="main-user-template")
+      h3 Users data
+      .row
+        #user-data
+        #uiser-task
+
+    script(type="text/template", id="main-user-data-template")
+      table.table.table-borderd.table-striped
+        thead
+          tr
+            th objectId
+            th username
+            th data list
+        tbody
+
+      //- .jumbotron
+      //-   h1 &apos;Allo, &apos;Allo!
+      //-   p.lead Always a pleasure scaffolding your apps.
+      //-   p
+      //-     a.btn.btn-lg.btn-success(href='#') Splendid!
+      //- .row.text-left
+      //-   .col-md-offset-4
+      //-     h2 Now Try,
+      //-     h4
+      //-       b yo backbone:router
+      //-       | &lt;router&gt;
+      //-     h4
+      //-       b yo backbone:collection
+      //-       | &lt;collection&gt;
+      //-     h4
+      //-       b yo backbone:model
+      //-       | &lt;model&gt;
+      //-     h4
+      //-       b yo backbone:view
+      //-       | &lt;view&gt;
+      //- .row.marketing
+      //-   .col-lg-6
+      //-     h4 HTML5 Boilerplate
+      //-     p
+      //-       | HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
+      //-     h4 Bootstrap
+      //-     p
+      //-       | Sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.
+      //-     h4 Modernizr
+      //-     p
+      //-       | Modernizr is an open-source JavaScript library that helps you build the next generation of HTML5 and CSS3-powered websites.
+      //-   .col-lg-6
+      //-     h4 Backbone.js
+      //-     p
+      //-       | Backbone.js gives structure to web applications by providing models, collections, views and connects it all to your existing API over a RESTful JSON interface.
+      //-     h4 Underscore.js
+      //-     p
+      //-       | Underscore.js is a utility-belt library for JavaScript that provides a lot of the functional programming support
+      //-     h4 RequireJS
+      //-     p
+      //-       | RequireJS is a JavaScript file and module loader. It is optimized for in-browser use, but it can be used in other JavaScript environments, like Rhino and Node.
+      //- .footer
+      //-   p &hearts; from the Yeoman team
+    // Google Analytics: change UA-XXXXX-X to be your site's ID.
+    //- script
+    //-   (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+    //-   function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+    //-   e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+    //-   e.src='//www.google-analytics.com/analytics.js';
+    //-   r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    //-   ga('create','UA-XXXXX-X');ga('send','pageview');
+    // build:js scripts/main.js
+    script(data-main='scripts/main', src='bower_components/requirejs/require.js')
+    // endbuild
