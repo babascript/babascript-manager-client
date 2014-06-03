@@ -1,11 +1,11 @@
 'use strict'
 
 
-define ['backbone', 'marionette'], (backbone) ->
+define ['controller', 'backbone', 'marionette'], (Controller, Backbone) ->
   class Router extends Backbone.Marionette.AppRouter
     appRoutes:
-      '': 'hoge'
-      'hoge': 'hoge'
-      'fuga': 'fuga'
+      '': 'top'
+      'user/:name': 'user'
+      'group/:name': 'group'
 
   return Router

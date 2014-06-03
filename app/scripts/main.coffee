@@ -19,46 +19,19 @@ require.config
     router: './router'
     sidebar: './sidebar'
     user: './user'
-    main: './main'
+    app: './app'
 
 require [
+  'app'
   'backbone'
-  'marionette'
-  'underscore'
-  'controller'
   'router'
-  'sidebar'
-  'user'
-], (Backbone, Marionette, _, Controller, Router, Sidebar, UserView) ->
-  {UserView, UserDataView } = UserView
-  App = new Marionette.Application()
-
-  App.addInitializer ->
-    App.addRegions
-      header: '#header'
-      sidebar: "#sidebar"
-      main: '#main'
-    router = new Router
-      controller: new Controller
-
-    sidebar = new Sidebar
-      collection: new Backbone.Collection [
-        {name: 'masuilab'}
-        {name: 'ylab'}
-        {name: "are lab"}
-      ]
-    App.sidebar.show sidebar
-
-    userview = new UserView()
-    App.main.show userview
-
-    userview.data.show new UserDataView()
-
-    $("a").on "click", (e) ->
-      next = $(e.currentTarget).attr 'href'
-      return if !next?
-      e.preventDefault()
-      router.navigate next, trigger: true
-    Backbone.history.start pushState: yes
+  'controller'
+], (App, Backbone, Router, Controller) ->
 
   App.start()
+
+  router = new Router
+    controller: new Controller
+  App.router = router
+
+  Backbone.history.start()

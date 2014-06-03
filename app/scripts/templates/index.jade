@@ -30,19 +30,31 @@ html.no-js
         #sidebar.col-md-3
         #main.col-md-9
     script(type="text/template", id="sidebar-template")
-      .user-box
-        a(href="/"): h3 Takumi Baba
+      #sidebar-group-list-layout
       hr
+      #sidebar-user-list-layout
+
+    script(type="text/template", id="sidebar-group-list-template")
+      h4 Group List
       ul.sidebar-group-list.nav.nav-pills.nav-stacked
+      button.btn.btn-primary(type="button") + new group
+
+    script(type="text/template", id="sidebar-user-list-template")
+      h4 UserList
+      ul.sidebar-user-list.nav.nav-pills.nav-stacked
+      button.btn.btn-primary(type="button") + new user
 
     script(type="text/template", id="sidebar-group-element-template")
       a(href!="/group/<%= name %>") <%= name %>
+
+    script(type="text/template", id="sidebar-user-element-template")
+      a(href!="/user/<%= name %>") <%= name %>
 
     script(type="text/template", id="main-user-template")
       h3 Users data
       .row
         #user-data
-        #uiser-task
+        #user-task
 
     script(type="text/template", id="main-user-data-template")
       table.table.table-borderd.table-striped

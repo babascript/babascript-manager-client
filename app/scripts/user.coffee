@@ -10,6 +10,15 @@ define ['backbone', 'marionette'], (Backbone, Marionette) ->
 
   class UserDataView extends Marionette.ItemView
     template: '#main-user-data-template'
+    model: new Backbone.Model
+      objectId: "123679"
+      name: 'takumibaba'
+      hoge: 'fuga'
+      are: 'kore'
+
+    # behaviors:
+    #   stickit:
+    #     bidings:
 
   return {
     UserView: UserView

@@ -20,6 +20,7 @@ require.config
     main: './main'
 
 require [
+  'app'
   'main'
-], (main) ->
-  
+], (App,main) ->
+  App.start()

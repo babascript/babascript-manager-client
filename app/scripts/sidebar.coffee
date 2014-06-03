@@ -2,13 +2,34 @@
 
 define ['backbone', 'marionette'], (Backbone, Marionette) ->
 
-  class SidebarGroupElement extends Marionette.ItemView
+  class GroupElement extends Marionette.ItemView
     template: "#sidebar-group-element-template"
     tagName: 'li'
 
-  class Sidebar extends Marionette.CompositeView
-    template: "#sidebar-template"
-    itemView: SidebarGroupElement
+  class ListElement extends Marionette.ItemView
+    template: "#sidebar-user-element-template"
+    tagName: 'li'
+
+  class GroupList extends Marionette.CompositeView
+    template: "#sidebar-group-list-template"
+    itemView: GroupElement
     itemViewContainer: "ul.sidebar-group-list"
 
-  return Sidebar
+  class UserList extends Marionette.CompositeView
+    template: "#sidebar-user-list-template"
+    itemView: ListElement
+    itemViewContainer: "ul.sidebar-user-list"
+
+  class Sidebar extends Marionette.Layout
+    template: "#sidebar-template"
+    regions:
+      'group': '#sidebar-group-list-layout'
+      'user': '#sidebar-user-list-layout'
+
+  return {
+      GroupElement: GroupElement
+      ListElement: ListElement
+      GroupList: GroupList
+      UserList: UserList
+      Sidebar: Sidebar
+  }

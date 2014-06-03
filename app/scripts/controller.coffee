@@ -1,10 +1,14 @@
 'use strict'
 
-define ['main', 'backbone', 'marionette'], (Main, backbone, Marionette) ->
-  class Controller extends Marionette.Controller
-    hoge: ->
-      console.log "hogehogeeee"
+define ['app', 'backbone', 'marionette'], (App, backbone) ->
+  class Controller extends Backbone.Marionette.Controller
+    top: ->
+      console.log "top"
 
-    fuga: ->
-      console.log "fugaaaaaaaa"
+    user: (name)->
+      console.log App
+
+    group: (name)->
+      console.log name
+
   return Controller
