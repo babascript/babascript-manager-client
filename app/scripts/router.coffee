@@ -7,5 +7,6 @@ define ['controller', 'backbone', 'marionette'], (Controller, Backbone) ->
       '': 'top'
       'user/:name': 'user'
       'group/:name': 'group'
+      'login': 'login'
 
   return Router

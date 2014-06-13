@@ -194,7 +194,7 @@ module.exports = function (grunt) {
         },
         requirejs: {
             dist: {
-                // Options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
+                  // Options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
                 options: {
                     // `name` and `out` is set by grunt-usemin
                     baseUrl: '.tmp/scripts',
@@ -212,8 +212,8 @@ module.exports = function (grunt) {
                     // required to support SourceMaps
                     // http://requirejs.org/docs/errors.html#sourcemapcomments
                     preserveLicenseComments: false,
-                    useStrict: true,
-                    wrap: true
+                    useStrict: false,
+                    wrap: false
                     //uglify2: {} // https://github.com/mishoo/UglifyJS2
                 }
             }
@@ -275,18 +275,30 @@ module.exports = function (grunt) {
         copy: {
             dist: {
                 files: [{
-                    expand: true,
+                    expand: false,
                     dot: true,
                     cwd: '<%= yeoman.app %>',
                     dest: '<%= yeoman.dist %>',
                     src: [
-                        '*.{ico,txt}',
-                        '.htaccess',
+                        // '*.{ico,txt}',
+                        // '.htaccess',
                         'images/{,*/}*.{webp,gif}',
                         'styles/fonts/{,*/}*.*',
                         'bower_components/sass-bootstrap/fonts/*.*'
                     ]
                 }]
+            },
+            dist2: {
+              files: [{
+                  expand: true,
+                  dot: true,
+                  cwd: '<%= yeoman.app %>',
+                  dest: '<%= yeoman.dist %>',
+                  src: [
+                      'bower_components/**',
+                      'scripts/linda-socket.io.js'
+                  ]
+              }]
             }
         },
         jade: {
@@ -390,13 +402,14 @@ module.exports = function (grunt) {
         'compass:dist',
         'jade',
         'useminPrepare',
-        'requirejs',
         'imagemin',
         'htmlmin',
         'concat',
         'cssmin',
         'uglify',
         'copy',
+        'copy:dist2',
+        'requirejs',
         'rev',
         'usemin'
     ]);

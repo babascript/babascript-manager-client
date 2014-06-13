@@ -11,7 +11,9 @@
     "modernizr": "~2.7.1",
     "marionette": "~1.8.6",
     "backbone.stickit": "~0.8.0",
-    "underscore.string": "~2.3.3"
+    "underscore.string": "~2.3.3",
+    "socket.io-client": "0.9.17",
+    "moment": "~2.6.0"
   },
   "devDependencies": {}
 }

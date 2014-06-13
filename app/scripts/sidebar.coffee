@@ -9,6 +9,13 @@ define ['backbone', 'marionette'], (Backbone, Marionette) ->
   class ListElement extends Marionette.ItemView
     template: "#sidebar-user-element-template"
     tagName: 'li'
+    ui:
+      "link": 'a'
+    events:
+      'click @ui.link': "link"
+    link: (e) ->
+      # e.stopPropagation()
+      # e.preventDefault()
 
   class GroupList extends Marionette.CompositeView
     template: "#sidebar-group-list-template"

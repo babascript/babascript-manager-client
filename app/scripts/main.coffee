@@ -9,29 +9,42 @@ require.config
     marionette:
       deps: ['jquery', 'underscore', 'backbone']
       exports: 'Marionette'
+    underscore:
+      deps: ['jquery']
+      exports: '_'
+    backgrid:
+      deps: ['jquery', 'underscore', 'backbone']
+      exports: 'Backgrid'
+    linda:
+      deps: ['jquery', 'underscore', 'socketio']
+      exports: 'Linda'
   paths:
-    jquery: '../bower_components/jquery/dist/jquery'
-    backbone: '../bower_components/backbone/backbone'
-    marionette: '../bower_components/marionette/lib/backbone.marionette'
+    jquery:     '../bower_components/jquery/dist/jquery'
+    moment:     '../bower_components/moment/moment'
+    backbone:   '../bower_components/backbone/backbone'
     underscore: '../bower_components/underscore/underscore'
-    bootstrap: '../bower_components/sass-bootstrap/dist/js/bootstrap'
+    marionette: '../bower_components/marionette/lib/backbone.marionette'
+    backgrid:   '../bower_components/backgrid/lib/backgrid'
+    bootstrap:  '../bower_components/sass-bootstrap/dist/js/bootstrap'
+    socketio:   '../bower_components/socket.io-client/dist/socket.io'
+    linda:      './linda-socket.io'
     controller: './controller'
-    router: './router'
-    sidebar: './sidebar'
-    user: './user'
-    app: './app'
-
+    router:     './router'
+    sidebar:    './sidebar'
+    user:       './user'
+    session:    './session'
+    model:      './models/model'
+    app:        './app'
 require [
-  'app'
-  'backbone'
   'router'
   'controller'
-], (App, Backbone, Router, Controller) ->
-
+  'app'
+  'backbone'
+  'bootstrap'
+  'moment'
+], (Router, Controller, App, Backbone) ->
   App.start()
-
-  router = new Router
+  App.router = new Router
     controller: new Controller
-  App.router = router
 
   Backbone.history.start()

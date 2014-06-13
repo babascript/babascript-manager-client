@@ -9,6 +9,7 @@ html.no-js
     // Place favicon.ico and apple-touch-icon.png in the root directory
     // build:css(.tmp) styles/main.css
     link(rel='stylesheet', href='styles/main.css')
+    link(rel='stylesheet', href='bower_components/backgrid/lib/backgrid.css')
     // endbuild
     // build:js scripts/vendor/modernizr.js
     script(src='bower_components/modernizr/modernizr.js')
@@ -25,10 +26,12 @@ html.no-js
       .container
         .navbar-header
           a.navbar-brand(href='/') Babascript Manager
-    .container.contents
+    .container-fluid.contents
       .row
-        #sidebar.col-md-3
-        #main.col-md-9
+        #sidebar.col-md-2
+        #main.col-md-10
+    #login
+
     script(type="text/template", id="sidebar-template")
       #sidebar-group-list-layout
       hr
@@ -45,77 +48,150 @@ html.no-js
       button.btn.btn-primary(type="button") + new user
 
     script(type="text/template", id="sidebar-group-element-template")
-      a(href!="/group/<%= name %>") <%= name %>
+      a(href!="#group/<%= groupname %>") <%= groupname %>
 
     script(type="text/template", id="sidebar-user-element-template")
-      a(href!="/user/<%= name %>") <%= name %>
+      a(href!="#user/<%= username %>") <%= username %>
 
     script(type="text/template", id="main-user-template")
       h3 Users data
       .row
         #user-data
+        #user-test-data
         #user-task
 
-    script(type="text/template", id="main-user-data-template")
+    script(type="text/template", id='user-table-panel-template')
+      .panel.panel-primary
+        .panel-heading
+          strong データ
+        #user-test-data-table.panel-body
+        .input-group.add-key-group
+          span.input-group-btn
+            button.add-button.btn.btn-default(type='button') キーを追加
+          input.add-key.form-control(type='text')
+        //- button.add-button.center-block.btn.btn-info(type="button") add info
+
+    script(type="text/template", id="data-table-remove-template")
+      a: span.glyphicon.glyphicon-remove
+
+    script(type="text/template", id="user-data-list-template")
       table.table.table-borderd.table-striped
         thead
           tr
             th objectId
             th username
             th data list
-        tbody
+        tbody.user-data-rows
 
-      //- .jumbotron
-      //-   h1 &apos;Allo, &apos;Allo!
-      //-   p.lead Always a pleasure scaffolding your apps.
-      //-   p
-      //-     a.btn.btn-lg.btn-success(href='#') Splendid!
-      //- .row.text-left
-      //-   .col-md-offset-4
-      //-     h2 Now Try,
-      //-     h4
-      //-       b yo backbone:router
-      //-       | &lt;router&gt;
-      //-     h4
-      //-       b yo backbone:collection
-      //-       | &lt;collection&gt;
-      //-     h4
-      //-       b yo backbone:model
-      //-       | &lt;model&gt;
-      //-     h4
-      //-       b yo backbone:view
-      //-       | &lt;view&gt;
-      //- .row.marketing
-      //-   .col-lg-6
-      //-     h4 HTML5 Boilerplate
-      //-     p
-      //-       | HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
-      //-     h4 Bootstrap
-      //-     p
-      //-       | Sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.
-      //-     h4 Modernizr
-      //-     p
-      //-       | Modernizr is an open-source JavaScript library that helps you build the next generation of HTML5 and CSS3-powered websites.
-      //-   .col-lg-6
-      //-     h4 Backbone.js
-      //-     p
-      //-       | Backbone.js gives structure to web applications by providing models, collections, views and connects it all to your existing API over a RESTful JSON interface.
-      //-     h4 Underscore.js
-      //-     p
-      //-       | Underscore.js is a utility-belt library for JavaScript that provides a lot of the functional programming support
-      //-     h4 RequireJS
-      //-     p
-      //-       | RequireJS is a JavaScript file and module loader. It is optimized for in-browser use, but it can be used in other JavaScript environments, like Rhino and Node.
-      //- .footer
-      //-   p &hearts; from the Yeoman team
-    // Google Analytics: change UA-XXXXX-X to be your site's ID.
-    //- script
-    //-   (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-    //-   function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-    //-   e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-    //-   e.src='//www.google-analytics.com/analytics.js';
-    //-   r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-    //-   ga('create','UA-XXXXX-X');ga('send','pageview');
+    script(type="text/template", id="user-data-row-template")
+      th <%= objectId %>
+      th <%= username %>
+      <% _.each(data, function(v, k){ %>
+      th <%= k %>:<%= v %>
+      <% }); %>
+
+    script(type="text/template", id="user-data-l-template")
+      div.panel-heading
+        strong user infomation
+      div.panel-body
+        table.table.table-striped.m-table.table-heading
+          thead
+            tr
+              th key
+              th value
+          tbody
+            tr
+              th user name
+              th <%= username %>
+            tr
+              <% _.each(groups, function(v, k){ %>
+              th group
+              th <%= v %>
+              <% });%>
+            <% _.each(attributes, function(v, k){ %>
+            tr
+              th <%= k %>
+              th <%= v %>
+            <% }); %>
+        button.add-property.btn.btn-primary.center-block Add Property
+
+    script(type="text/template", id="main-group-template")
+      h3 Group Data
+      .row
+        #group-member-layout
+        #group-task-layout
+
+    script(type="text/template", id="group-member-list-template")
+      div.panel-heading
+        strong group members list
+      div.panel-body
+        table.table.table-striped.m-table.table-heading
+          thead
+            tr
+              th username
+              th status
+          tbody.group-member-rows
+
+    script(type="text/template", id="group-member-list-layout-template")
+      div.panel-heading
+        strong group members list
+      #group-member-table.panel-body
+      .input-group.add-key-group
+        span.input-group-btn
+          button.add-button.btn.btn-default(type='button') メンバーを追加
+        input.add-user.form-control(type='text')
+
+
+    script(type="text/template", id="group-member-template")
+      th: a(href!="/user/<%= username %>") <%= username %>
+      th <%= status %>
+
+    script(type="text/template", id="user-task-list-template")
+      div.panel-heading
+        strong user exec task list
+      div.panel-body
+        table.table
+          thead
+            tr
+              th 依頼内容
+              th グループ
+              th 依頼の実行者
+              th 依頼の状態
+              th 依頼発生時間
+              th 依頼実行開始時間
+              th 依頼終了時間
+              th 実行時間
+          tbody.task-lists
+
+    script(type="text/template", id="user-task-template")
+      th <%= key %>
+      th <%= group %>
+      th <%= worker %>
+      th <%= status %>
+      th <%= moment(createdAt).format("YY/M/D h:m:s") %>
+      th <%= moment(startAt).format("YY/M/D h:m:s") %>
+      th <%= moment(finishAt).format("YY/M/D h:m:s") %>
+      th <%= moment(finishAt).diff(moment(startAt), 'seconds') %>秒
+      //- p <%= phrase %>
+
+    script(type="text/template", id="login-view-template")
+      .modal-dialog
+        .modal-content
+          .modal-header
+            h4 Login or Signup
+          .modal-body
+            form.form.com-md-12.center-block
+              .form-group
+                input#id-input.form-control.input-lg(type="text", placeholder="id")
+              .form-group
+                input#pass-input.form-control.input-lg(type="password", placeholder="password")
+              .form-group
+                button#login-button.btn.btn-primary.btn-lg.btn-block login
+                span#signup-button.pull-right: a ... or sign up
+
+    script(type="text/template", id="top-view-template")
+
+
     // build:js scripts/main.js
     script(data-main='scripts/main', src='bower_components/requirejs/require.js')
     // endbuild

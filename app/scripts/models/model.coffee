@@ -1,5 +1,5 @@
 'use strict'
-api = "http://localhost:3030/api"
+api = "http://localhost:9080/api"
 
 define ['backbone', 'marionette'], (Backbone, Marionette) ->
 
