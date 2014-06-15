@@ -46,5 +46,3 @@ require [
   App.start()
   App.router = new Router
     controller: new Controller
-
-  Backbone.history.start()

@@ -13,7 +13,8 @@
     "backbone.stickit": "~0.8.0",
     "underscore.string": "~2.3.3",
     "socket.io-client": "0.9.17",
-    "moment": "~2.6.0"
+    "moment": "~2.6.0",
+    "backgrid": "~0.3.5"
   },
   "devDependencies": {}
 }
