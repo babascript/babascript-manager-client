@@ -9,10 +9,28 @@ define [
 ], (App, Backgrid, Model, Backbone, Marionette) ->
 
   class GroupLayout extends Marionette.Layout
+    initialize: ->
     template: "#main-group-template"
     regions:
       'member': '#group-member-layout'
       'task': '#group-task-layout'
+    ui:
+      "groupname": "#group-name"
+      "groupdelete": "#group-delete-button"
+    events:
+      "click @ui.groupdelete": "delete"
+    setName: (@name)->
+    onShow: ->
+      @ui.groupname.html @name
+    delete: ->
+      console.log "delete"
+      $.ajax
+        type: "DELETE"
+        url: "#{App.API}/api/group/#{@name}/"
+      .done (res) ->
+        require("app").router.navigate "/", true
+      .error (error) ->
+        window.alert "group delete fail"
 
   class Member extends Marionette.ItemView
     template: '#group-member-template'
