@@ -25,7 +25,7 @@ html.no-js
     #header.navbar.navbar-inverse.navbar-static-top(role='navigation')
       .container
         .navbar-header
-          a.navbar-brand(href='/') Babascript Manager
+          a.text-center.navbar-brand(href='/') Babascript Manager
     .container-fluid.contents
       .row
         #sidebar.col-md-2
@@ -40,12 +40,12 @@ html.no-js
     script(type="text/template", id="sidebar-group-list-template")
       h4 Group List
       ul.sidebar-group-list.nav.nav-pills.nav-stacked
-      button.btn.btn-primary(type="button") + new group
+      input#newgroupname.form-control(type="text", placeholder="new groupname ...")
+      button#newgroup.btn.btn-block.btn-default(type="button") add new group
 
     script(type="text/template", id="sidebar-user-list-template")
       h4 UserList
       ul.sidebar-user-list.nav.nav-pills.nav-stacked
-      button.btn.btn-primary(type="button") + new user
 
     script(type="text/template", id="sidebar-group-element-template")
       a(href!="#group/<%= groupname %>") <%= groupname %>
@@ -116,10 +116,14 @@ html.no-js
         button.add-property.btn.btn-primary.center-block Add Property
 
     script(type="text/template", id="main-group-template")
-      h3 Group Data
+      .row
+        h3#group-name Group Name
+        button#group-delete-button.btn.btn-danger.pull-right group delete
+      hr
       .row
         #group-member-layout
         #group-task-layout
+
 
     script(type="text/template", id="group-member-list-template")
       div.panel-heading
@@ -154,7 +158,7 @@ html.no-js
           thead
             tr
               th 依頼内容
-              th グループ
+              th 結果
               th 依頼の実行者
               th 依頼の状態
               th 依頼発生時間
@@ -165,7 +169,7 @@ html.no-js
 
     script(type="text/template", id="user-task-template")
       th <%= key %>
-      th <%= group %>
+      th <%= value %>
       th <%= worker %>
       th <%= status %>
       th <%= moment(createdAt).format("YY/M/D h:m:s") %>
