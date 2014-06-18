@@ -5,7 +5,8 @@ define ['require', 'app', 'user', 'session', 'model', 'group', 'backbone', 'mari
   class Controller extends Backbone.Marionette.Controller
     top: ->
       App.main.close()
-      console.log "top"
+      topview = new User.TopView()
+      App.main.show topview
 
     user: (name)->
 
@@ -34,6 +35,7 @@ define ['require', 'app', 'user', 'session', 'model', 'group', 'backbone', 'mari
     group: (name)->
       App.main.close()
       groupView = new Group.GroupLayout()
+      groupView.setName name
       App.main.show groupView
 
       members = new Model.Members name
