@@ -40,13 +40,13 @@ define [
         data:
           username: id
           password: pass
-        success: (res) =>
-          App.login.close()
-          console.log res
-          App.router.navigate "", true
-        failure: (err) =>
-          console.log err
-          window.alert "ログイン失敗"
+      .done (res) =>
+        App.login.close()
+        console.log res
+        App.router.navigate "", true
+      .error (err) =>
+        console.log err
+        window.alert "ログイン失敗"
       return false
     signup: (e) =>
 
