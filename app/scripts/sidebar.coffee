@@ -1,6 +1,6 @@
 'use strict'
 
-define ['backbone', 'marionette'], (Backbone, Marionette) ->
+define ['app', 'backbone', 'marionette'], (App, Backbone, Marionette) ->
 
   class GroupElement extends Marionette.ItemView
     template: "#sidebar-group-element-template"
@@ -21,6 +21,27 @@ define ['backbone', 'marionette'], (Backbone, Marionette) ->
     template: "#sidebar-group-list-template"
     itemView: GroupElement
     itemViewContainer: "ul.sidebar-group-list"
+    ui:
+      "newgroup": "button#newgroup"
+      "newgroupname": "input#newgroupname"
+    events:
+      "click @ui.newgroup": 'newgroup'
+    newgroup: ->
+      App = require('app')
+      name = @ui.newgroupname.val()
+      console.log name
+      console.log App
+      $.ajax
+        type: "POST"
+        url: "#{App.API}/api/group/new"
+        data:
+          name: name
+      .done (res) =>
+        console.log res
+        @ui.newgroupname.val ""
+        App.router.navigate "group/#{res.groupname}", true
+      .error (error) ->
+        console.log error
 
   class UserList extends Marionette.CompositeView
     template: "#sidebar-user-list-template"
